@@ -13,7 +13,7 @@ export class Product implements IProduct {
   @Prop()
   quantity: number;
   @Prop()
-  relationId: number;
+  relationId: string;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);

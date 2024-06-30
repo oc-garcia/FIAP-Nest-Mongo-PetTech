@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProductRepository } from '../repositories/product.repository';
 import { IProduct } from '../schemas/models/product.interface';
 
@@ -15,7 +15,10 @@ export class StockService {
   }
 
   async getStock(productId: string) {
-    return this.productRepository.getStock(productId);
+    const products = await this.productRepository.getStock(productId);
+    if (!products) throw new NotFoundException('Product not found');
+
+    return products;
   }
 
   async updateStock(productId: string, stock: number) {
